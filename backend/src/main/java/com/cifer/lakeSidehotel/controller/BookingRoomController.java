@@ -34,23 +34,18 @@ public class BookingRoomController {
         return ResponseEntity.ok(bookingResponses);
     }
 
-    private BookedResponse getBookingResponse(BookedRoom bookingRoom) {
-        Room theRoom = roomService.getRoomById(bookingRoom.getBookingId()).get();
+    private BookedResponse getBookingResponse(BookedRoom booking) {
+        Room theRoom = roomService.getRoomById(booking.getRoom().getId()).get();
         RoomResponse room = new RoomResponse(
                 theRoom.getId(),
                 theRoom.getRoomType(),
                 theRoom.getRoomPrice());
         return new BookedResponse(
-                bookingRoom.getBookingId(),
-                bookingRoom.getCheckInDate(),
-                bookingRoom.getCheckOutDate(),
-                bookingRoom.getGuestName(),
-                bookingRoom.getGuestEmail(),
-                bookingRoom.getNumOfAdults(),
-                bookingRoom.getNumOfChildren(),
-                bookingRoom.getTotalNumOfGuest(),
-                bookingRoom.getBookingConfirmationCode(),
-                room);
+                booking.getBookingId(), booking.getCheckInDate(),
+                booking.getCheckOutDate(),booking.getGuestName(),
+                booking.getGuestEmail(), booking.getNumOfAdults(),
+                booking.getNumOfChildren(), booking.getTotalNumOfGuest(),
+                booking.getBookingConfirmationCode(), room);
     }
 
     @GetMapping("/confirmation/{confirmationCode}")

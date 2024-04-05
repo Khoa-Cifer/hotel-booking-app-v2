@@ -1,6 +1,7 @@
 package com.cifer.lakeSidehotel.service;
 
 import com.cifer.lakeSidehotel.exception.InvalidBookingRequestException;
+import com.cifer.lakeSidehotel.exception.ResourceNotFoundException;
 import com.cifer.lakeSidehotel.model.BookedRoom;
 import com.cifer.lakeSidehotel.model.Room;
 import com.cifer.lakeSidehotel.repository.BookingRoomRepository;
@@ -22,7 +23,8 @@ public class BookedRoomServiceImpl implements IBookedRoomService {
 
     @Override
     public BookedRoom findByBookingConfirmationCode(String confirmationCode) {
-        return repository.findByBookingConfirmationCode(confirmationCode);
+        return repository.findByBookingConfirmationCode(confirmationCode)
+                .orElseThrow(() -> new ResourceNotFoundException("No booking found with booking code: " + confirmationCode));
     }
 
     @Override

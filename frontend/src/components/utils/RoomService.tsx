@@ -51,4 +51,9 @@ const cancelBooking = (id) => {
     return axios.delete(`/booking/booking/${id}/delete`)
 }
 
-export { addRoom, getRoomTypes, getAllRooms, deleteRoom, updateRoom, getRoomById, bookRoom, getAllBooking, getBookingByConfirmationCode, cancelBooking }
+const getAvailableRooms = (checkInDate, checkOutDate, roomType) => {
+    return axios.get
+    (`/rooms/available-rooms?checkInDate=${checkInDate}&checkOutDate=${checkOutDate}&roomType=${roomType}`)
+}
+
+export { addRoom, getRoomTypes, getAllRooms, deleteRoom, updateRoom, getRoomById, bookRoom, getAllBooking, getBookingByConfirmationCode, cancelBooking, getAvailableRooms }
