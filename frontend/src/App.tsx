@@ -14,10 +14,15 @@ import Checkout from './components/bookings/Checkout'
 import BookingSuccess from './components/bookings/BookingSuccess'
 import Bookings from './components/bookings/Bookings'
 import FindBooking from './components/bookings/FindBooking'
+import Login from './components/auth/Login'
+import Registration from './components/auth/Registration'
+import Profile from './components/auth/Profile'
+import Logout from './components/auth/Logout'
+import { AuthProvider } from './components/auth/AuthProvider'
 
 function App() {
   return (
-    <>
+    <AuthProvider>
       <main>
         <Router>
           <NavBar />
@@ -32,11 +37,15 @@ function App() {
             <Route path='/booking-success' element={<BookingSuccess />}></Route>
             <Route path='/existing-bookings' element={<Bookings />}></Route>
             <Route path='/find-booking' element={<FindBooking />}></Route>
+            <Route path='/login' element={<Login />}></Route>
+            <Route path='/register' element={<Registration />}></Route>
+            <Route path='/profile' element={<Profile />} />
+            <Route path='/logout' element={<Logout />} />
           </Routes>
         </Router>
         <Footer />
       </main>
-    </>
+    </AuthProvider>
   )
 }
 

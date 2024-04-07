@@ -1,7 +1,6 @@
 package com.cifer.lakeSidehotel.controller;
 
 import com.cifer.lakeSidehotel.exception.UserAlreadyExistException;
-import com.cifer.lakeSidehotel.model.Role;
 import com.cifer.lakeSidehotel.model.User;
 import com.cifer.lakeSidehotel.request.LoginRequest;
 import com.cifer.lakeSidehotel.response.JwtResponse;
@@ -20,8 +19,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
-
 
 @RestController
 @RequestMapping("/auth")
@@ -33,21 +30,20 @@ public class AuthController {
     private final JwtUtils jwtUtils;
 
     @PostMapping("/register-user")
-    public ResponseEntity<?> registerUser(@RequestBody User user){
-        try{
+    public ResponseEntity<?> registerUser(@RequestBody User user) {
+        try {
             userService.registerUser(user);
             return ResponseEntity.ok("Registration successful!");
 
-        }catch (UserAlreadyExistException e){
+        } catch (UserAlreadyExistException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         }
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest request){
-        Authentication authentication =
-                authenticationManager
-                        .authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest request) {
+        Authentication authentication = authenticationManager
+                .authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtTokenForUser(authentication);
         HotelUserDetails userDetails = (HotelUserDetails) authentication.getPrincipal();

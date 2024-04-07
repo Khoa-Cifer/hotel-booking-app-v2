@@ -1,5 +1,13 @@
 import axios from "./CustomizeApiFunction";
 
+const getHeader = () => {
+    const token = localStorage.getItem("token")
+    return {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+    }
+}
+
 //Add room to database
 const addRoom = (photo, roomType, roomPrice) => {
     const formData = new FormData()
@@ -11,7 +19,7 @@ const addRoom = (photo, roomType, roomPrice) => {
 
 //Get all room types from the database
 const getRoomTypes = () => {
-    return axios.get("/rooms/room-types");
+    return axios.get("/rooms/room/types");
 }
 
 //Get all rooms from the database
@@ -52,8 +60,37 @@ const cancelBooking = (id) => {
 }
 
 const getAvailableRooms = (checkInDate, checkOutDate, roomType) => {
-    return axios.get
-    (`/rooms/available-rooms?checkInDate=${checkInDate}&checkOutDate=${checkOutDate}&roomType=${roomType}`)
+    return axios.get(`/rooms/available-rooms?checkInDate=${checkInDate}&checkOutDate=${checkOutDate}&roomType=${roomType}`)
 }
 
-export { addRoom, getRoomTypes, getAllRooms, deleteRoom, updateRoom, getRoomById, bookRoom, getAllBooking, getBookingByConfirmationCode, cancelBooking, getAvailableRooms }
+const registerUser = (registration) => {
+    return axios.post("/auth/register-user", registration)
+}
+
+const loginUser = (login) => {
+    return axios.post("/auth/login", login)
+}
+
+const deleteUser = (userId) => {
+    return axios.delete(`/users/delete/${userId}`, {
+        headers: getHeader()
+    })
+} 
+
+const getUserProfile = (id, token) => {
+    return axios.get(`/users/find/${id}`, {
+        headers: getHeader()
+    })
+}
+
+const getBookingsByUserId = (userId, token) => {
+    return axios.get(`/bookings/user/${userId}/bookings`, {
+        headers: getHeader()
+    })
+}
+
+export {
+    addRoom, getRoomTypes, getAllRooms, deleteRoom, updateRoom, getRoomById, 
+    bookRoom, getAllBooking, getBookingByConfirmationCode, cancelBooking, getAvailableRooms, getBookingsByUserId,
+    registerUser, loginUser, deleteUser, getUserProfile
+}

@@ -17,7 +17,7 @@ public class RoomResponse {
     private BigDecimal roomPrice;
     private boolean isBooked;
     private String photo;
-    private List<BookingResponse>bookings;
+    private List<BookingResponse> bookings;
 
     public RoomResponse(Long id, String roomType, BigDecimal roomPrice) {
         this.id = id;
@@ -26,7 +26,7 @@ public class RoomResponse {
     }
 
     public RoomResponse(Long id, String roomType, BigDecimal roomPrice, boolean isBooked,
-                        byte[] photoBytes , List<BookingResponse> bookings) {
+            byte[] photoBytes, List<BookingResponse> bookings) {
         this.id = id;
         this.roomType = roomType;
         this.roomPrice = roomPrice;

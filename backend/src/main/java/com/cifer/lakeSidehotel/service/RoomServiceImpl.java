@@ -21,8 +21,10 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class RoomServiceImpl implements IRoomService {
     private final RoomRepository roomRepository;
+
     @Override
-    public Room addNewRoom(MultipartFile photo, String roomType, BigDecimal roomPrice) throws IOException, SQLException {
+    public Room addNewRoom(MultipartFile photo, String roomType, BigDecimal roomPrice)
+            throws IOException, SQLException {
         Room room = new Room();
         room.setRoomType(roomType);
         room.setRoomPrice(roomPrice);
@@ -60,7 +62,7 @@ public class RoomServiceImpl implements IRoomService {
     @Override
     public void deleteRoom(Long id) {
         Optional<Room> theRoom = roomRepository.findById(id);
-        if(theRoom.isPresent()) {
+        if (theRoom.isPresent()) {
             roomRepository.deleteById(id);
         }
     }
@@ -95,4 +97,3 @@ public class RoomServiceImpl implements IRoomService {
         return roomRepository.findAvailableRoomsByDatesAndType(checkInDate, checkOutDate, roomType);
     }
 }
-

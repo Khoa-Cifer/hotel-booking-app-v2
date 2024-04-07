@@ -7,6 +7,8 @@ import { bookRoom, getRoomById } from "../utils/RoomService"
 import { useNavigate, useParams } from "react-router-dom"
 
 const BookingForm = () => {
+    const currentUser = localStorage.getItem("userId")
+    
     const [validated, setValidated] = useState(false)
     const [isSubmitted, setIsSubmitted] = useState(false)
     const [errorMessage, setErrorMessage] = useState("")
@@ -14,7 +16,7 @@ const BookingForm = () => {
 
     const [booking, setBooking] = useState({
         guestName: "",
-        guestEmail: "",
+        guestEmail: currentUser,
         checkInDate: "",
         checkOutDate: "",
         numOfAdults: "",
