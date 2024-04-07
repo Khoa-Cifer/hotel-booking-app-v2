@@ -66,7 +66,7 @@ public class RoomServiceImpl implements IRoomService {
     }
 
     @Override
-    public Room updateRoom(Long id, String roomType, BigDecimal roomPrice, byte[] photoBytes) throws SQLException {
+    public Room updateRoom(Long id, String roomType, BigDecimal roomPrice, byte[] photoBytes) {
         Room room = roomRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Room not found"));
         if (roomType != null) {
@@ -92,7 +92,7 @@ public class RoomServiceImpl implements IRoomService {
 
     @Override
     public List<Room> getAvailableRooms(LocalDate checkInDate, LocalDate checkOutDate, String roomType) {
-        return roomRepository.findAvailableROomsByDatesAndType(checkInDate, checkOutDate, roomType);
+        return roomRepository.findAvailableRoomsByDatesAndType(checkInDate, checkOutDate, roomType);
     }
 }
 

@@ -1,4 +1,4 @@
-package com.cifer.lakeSidehotel.dto;
+package com.cifer.lakeSidehotel.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,19 +9,29 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BookedResponse {
+public class BookingResponse {
     private Long id;
+
     private LocalDate checkInDate;
+
     private LocalDate checkOutDate;
+
     private String guestName;
+
     private String guestEmail;
+
     private int numOfAdults;
+
     private int numOfChildren;
-    private int totalNumOfGuest;
+
+    private int totalNumOfGuests;
+
     private String bookingConfirmationCode;
+
     private RoomResponse room;
 
-    public BookedResponse(Long id, LocalDate checkInDate, LocalDate checkOutDate, String bookingConfirmationCode) {
+    public BookingResponse(Long id, LocalDate checkInDate, LocalDate checkOutDate,
+                           String bookingConfirmationCode) {
         this.id = id;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;

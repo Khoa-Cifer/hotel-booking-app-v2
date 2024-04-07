@@ -11,19 +11,19 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IRoomService {
-    public Room addNewRoom(MultipartFile photo, String roomType, BigDecimal roomPrice) throws IOException, SQLException;
+    Room addNewRoom(MultipartFile photo, String roomType, BigDecimal roomPrice) throws SQLException, IOException;
 
     List<String> getAllRoomTypes();
 
-    byte[] getRoomPhotoByRoomId(Long id) throws SQLException;
-
     List<Room> getAllRooms();
 
-    void deleteRoom(Long id);
+    byte[] getRoomPhotoByRoomId(Long roomId) throws SQLException;
 
-    Room updateRoom(Long id, String roomType, BigDecimal roomPrice, byte[] photoBytes) throws SQLException;
+    void deleteRoom(Long roomId);
 
-    Optional<Room> getRoomById(Long id);
+    Room updateRoom(Long roomId, String roomType, BigDecimal roomPrice, byte[] photoBytes);
+
+    Optional<Room> getRoomById(Long roomId);
 
     List<Room> getAvailableRooms(LocalDate checkInDate, LocalDate checkOutDate, String roomType);
 }

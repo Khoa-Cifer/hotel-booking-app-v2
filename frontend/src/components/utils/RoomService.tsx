@@ -36,19 +36,19 @@ const deleteRoom = (id) => {
 }
 
 const bookRoom = (id, booking) => {
-    return axios.post(`/booking/room/${id}/booking`, booking)
+    return axios.post(`/bookings/room/${id}/booking`, booking)
 }
 
 const getAllBooking = () => {
-    return axios.get("/booking/all-bookings")
+    return axios.get("/bookings/all-bookings")
 }
 
 const getBookingByConfirmationCode = (confirmationCode) => {
-    return axios.get(`/booking/confirmation/${confirmationCode}`)
+    return axios.get(`/bookings/confirmation/${confirmationCode}`)
 }
 
 const cancelBooking = (id) => {
-    return axios.delete(`/booking/booking/${id}/delete`)
+    return axios.delete(`/bookings/booking/${id}/delete`)
 }
 
 const getAvailableRooms = (checkInDate, checkOutDate, roomType) => {

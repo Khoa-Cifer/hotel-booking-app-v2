@@ -13,43 +13,51 @@ import java.time.LocalDate;
 public class BookedRoom {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long bookingId;
-    @Column(name = "Check_In")
+    private  Long bookingId;
+
+    @Column(name = "check_in")
     private LocalDate checkInDate;
-    @Column(name = "Check_Out")
+
+    @Column(name = "check_out")
     private LocalDate checkOutDate;
-    @Column(name = "Guest_Name")
-    private String guestName;
-    @Column(name = "Guest_Email")
+
+    @Column(name = "guest_fullName")
+    private String guestFullName;
+
+    @Column(name = "guest_email")
     private String guestEmail;
-    @Column(name = "Number_Of_Adults")
-    private int numOfAdults;
-    @Column(name = "Number_Of_Children")
-    private int numOfChildren;
-    @Column(name = "Total_Guests")
+
+    @Column(name = "adults")
+    private int NumOfAdults;
+
+    @Column(name = "children")
+    private int NumOfChildren;
+
+    @Column(name = "total_guest")
     private int totalNumOfGuest;
-    @Column(name = "Confirmation_Code")
+
+    @Column(name = "confirmation_Code")
     private String bookingConfirmationCode;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Room_Id")
+    @JoinColumn(name = "room_id")
     private Room room;
-    public void calculateTotalNumberOfGuest() {
-        this.totalNumOfGuest = this.numOfAdults + this.numOfChildren;
+
+    public void calculateTotalNumberOfGuest(){
+        this.totalNumOfGuest = this.NumOfAdults + NumOfChildren;
     }
 
     public void setNumOfAdults(int numOfAdults) {
-        this.numOfAdults = numOfAdults;
+        NumOfAdults = numOfAdults;
         calculateTotalNumberOfGuest();
     }
 
     public void setNumOfChildren(int numOfChildren) {
-        this.numOfChildren = numOfChildren;
+        NumOfChildren = numOfChildren;
         calculateTotalNumberOfGuest();
     }
 
-    public BookedRoom(String bookingConfirmationCode) {
+    public void setBookingConfirmationCode(String bookingConfirmationCode) {
         this.bookingConfirmationCode = bookingConfirmationCode;
     }
 }
-

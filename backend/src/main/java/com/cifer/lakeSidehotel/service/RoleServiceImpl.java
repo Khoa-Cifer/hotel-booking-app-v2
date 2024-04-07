@@ -35,7 +35,7 @@ public class RoleServiceImpl implements IRoleService {
 
     @Override
     public void deleteRole(Long id) {
-        this.removeAllUserFromRole(id);
+        this.removeAllUsersFromRole(id);
         roleRepository.deleteById(id);
     }
 
@@ -73,7 +73,7 @@ public class RoleServiceImpl implements IRoleService {
     }
 
     @Override
-    public Role removeAllUserFromRole(Long id) {
+    public Role removeAllUsersFromRole(Long id) {
         Optional<Role> role = roleRepository.findById(id);
         role.get().removeAllUsersFromRole();
         return roleRepository.save(role.get());
