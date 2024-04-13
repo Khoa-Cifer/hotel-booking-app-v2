@@ -8,7 +8,7 @@ import { useNavigate, useParams } from "react-router-dom"
 
 const BookingForm = () => {
     const currentUser = localStorage.getItem("userId")
-    
+
     const [validated, setValidated] = useState(false)
     const [isSubmitted, setIsSubmitted] = useState(false)
     const [errorMessage, setErrorMessage] = useState("")
