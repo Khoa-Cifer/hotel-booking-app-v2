@@ -1,5 +1,9 @@
 import axios from "./CustomizeApiFunction";
 
+const getToken = () => {
+	return sessionStorage.getItem('token');
+};
+
 //Add room to database
 const addRoom = (photo, roomType, roomPrice) => {
     const formData = new FormData()
@@ -7,7 +11,12 @@ const addRoom = (photo, roomType, roomPrice) => {
     formData.append("roomType", roomType);
     formData.append("roomPrice", roomPrice);
     console.log(sessionStorage.getItem("token"))
-    return axios.post("/rooms/add/new-room", formData);
+    return axios.post("/rooms/add/new-room", formData, {
+        headers: {
+            "Authorization": `Bearer ${getToken()}`,
+            "Content-Type": `multipart/form-data`
+        }
+    });
 }
 
 //Get all room types from the database
@@ -29,11 +38,20 @@ const updateRoom = (id, roomData) => {
     formData.append("photo", roomData.photo);
     formData.append("roomType", roomData.roomType);
     formData.append("roomPrice", roomData.roomPrice);
-    return axios.put(`/rooms/update/${id}`, formData)
+    return axios.put(`/rooms/update/${id}`, formData, {
+        headers: {
+            "Authorization": `Bearer ${getToken()}`,
+            "Content-Type": `multipart/form-data`
+        }
+    })
 }
 
 const deleteRoom = (id) => {
-    return axios.delete(`/rooms/delete/room/${id}`);
+    return axios.delete(`/rooms/delete/room/${id}`, {
+        headers: {
+            "Authorization": `Bearer ${getToken()}`,
+        }
+    });
 }
 
 const bookRoom = (id, booking) => {
@@ -41,7 +59,12 @@ const bookRoom = (id, booking) => {
 }
 
 const getAllBooking = () => {
-    return axios.get("/bookings/all-bookings")
+    return axios.get("/bookings/all-bookings", {
+        headers: {
+            "Authorization": `Bearer ${getToken()}`,
+            "Content-Type": `application/json`
+        }
+    })
 }
 
 const getBookingByConfirmationCode = (confirmationCode) => {
@@ -65,15 +88,30 @@ const loginUser = (login) => {
 }
 
 const deleteUser = (userId) => {
-    return axios.delete(`/users/delete/${userId}`)
+    return axios.delete(`/users/delete/${userId}`, {
+        headers: {
+            "Authorization": `Bearer ${getToken()}`,
+            "Content-Type": `application/json`
+        }
+    })
 }
 
 const getUserProfile = (id, token) => {
-    return axios.get(`/users/find/${id}`)
+    return axios.get(`/users/find/${id}`, {
+        headers: {
+            "Authorization": `Bearer ${getToken()}`,
+            "Content-Type": `application/json`
+        }
+    })
 }
 
 const getBookingsByUserId = (userId, token) => {
-    return axios.get(`/bookings/user/${userId}/bookings`)
+    return axios.get(`/bookings/user/${userId}/bookings`, {
+        headers: {
+            "Authorization": `Bearer ${getToken()}`,
+            "Content-Type": `application/json`
+        }
+    })
 }
 
 export {
