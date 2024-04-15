@@ -13,8 +13,8 @@ const NavBar = () => {
 
 	const { user } = useContext(AuthContext)
 	const isLoggedIn = user !== null
-	const userRole = localStorage.getItem("userRole")
-
+	const userRole = sessionStorage.getItem("userRole")
+	console.log(userRole)
 	return (
 		<nav className="navbar navbar-expand-lg bg-body-tertiary px-5 shadow mt-5 sticky-top">
 			<div className="container-fluid">

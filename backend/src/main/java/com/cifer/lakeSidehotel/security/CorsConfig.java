@@ -28,7 +28,6 @@ public class CorsConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("https://7c16-2405-4803-c8ac-7410-d03a-a940-dc3c-87e1.ngrok-free.app");
         config.addAllowedOrigin("http://localhost:5173");
         config.setAllowedHeaders(Arrays.asList(
                 HttpHeaders.AUTHORIZATION,

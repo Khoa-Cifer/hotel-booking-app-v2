@@ -1,19 +1,12 @@
 import axios from "./CustomizeApiFunction";
 
-const getHeader = () => {
-    const token = localStorage.getItem("token")
-    return {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json"
-    }
-}
-
 //Add room to database
 const addRoom = (photo, roomType, roomPrice) => {
     const formData = new FormData()
     formData.append("photo", photo);
     formData.append("roomType", roomType);
     formData.append("roomPrice", roomPrice);
+    console.log(sessionStorage.getItem("token"))
     return axios.post("/rooms/add/new-room", formData);
 }
 
@@ -72,25 +65,19 @@ const loginUser = (login) => {
 }
 
 const deleteUser = (userId) => {
-    return axios.delete(`/users/delete/${userId}`, {
-        headers: getHeader()
-    })
-} 
+    return axios.delete(`/users/delete/${userId}`)
+}
 
 const getUserProfile = (id, token) => {
-    return axios.get(`/users/find/${id}`, {
-        headers: getHeader()
-    })
+    return axios.get(`/users/find/${id}`)
 }
 
 const getBookingsByUserId = (userId, token) => {
-    return axios.get(`/bookings/user/${userId}/bookings`, {
-        headers: getHeader()
-    })
+    return axios.get(`/bookings/user/${userId}/bookings`)
 }
 
 export {
-    addRoom, getRoomTypes, getAllRooms, deleteRoom, updateRoom, getRoomById, 
+    addRoom, getRoomTypes, getAllRooms, deleteRoom, updateRoom, getRoomById,
     bookRoom, getAllBooking, getBookingByConfirmationCode, cancelBooking, getAvailableRooms, getBookingsByUserId,
     registerUser, loginUser, deleteUser, getUserProfile
 }

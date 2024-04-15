@@ -1,7 +1,16 @@
 import axios from "axios";
 
+const getToken = () => {
+    console.log(sessionStorage.getItem('token'))
+    return sessionStorage.getItem('token');
+};
+
 const api = axios.create({
-    baseURL: "http://localhost:9192"
+    baseURL: "http://localhost:9192",
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': getToken() ? `Bearer ${getToken()}` : '', // Include token if it exists
+      },
 })
 
 api.interceptors.response.use(function (response) {

@@ -37,6 +37,7 @@ const AddRoom = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault()
 		try {
+			const token = sessionStorage.getItem('token'); // Assuming token is stored in sessionStorage
 			const success = await addRoom(newRoom.photo, newRoom.roomType, newRoom.roomPrice)
 			if (success !== undefined) {
 				setSuccessMessage("A new room was added successfully !")
