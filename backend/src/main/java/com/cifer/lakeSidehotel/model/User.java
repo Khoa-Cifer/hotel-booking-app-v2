@@ -29,4 +29,11 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Collection<Role> roles = new HashSet<>();
+
+    public User(String firstName, String password, String email, String lastName) {
+        this.firstName = firstName;
+        this.password = password;
+        this.email = email;
+        this.lastName = lastName;
+    }
 }

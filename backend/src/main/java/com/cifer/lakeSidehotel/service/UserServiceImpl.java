@@ -6,6 +6,7 @@ import com.cifer.lakeSidehotel.model.Role;
 import com.cifer.lakeSidehotel.model.User;
 import com.cifer.lakeSidehotel.repository.RoleRepository;
 import com.cifer.lakeSidehotel.repository.UserRepository;
+import com.cifer.lakeSidehotel.request.RegistrationRequest;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,13 +24,14 @@ public class UserServiceImpl implements IUserService {
     private final RoleRepository roleRepository;
 
     @Override
-    public User registerUser(User user) {
-        if (userRepository.existsByEmail(user.getEmail())) {
-            throw new UserAlreadyExistException(user.getEmail() + " already exists");
+    public User registerUser(RegistrationRequest newUser) {
+        if (userRepository.existsByEmail(newUser.getEmail())) {
+            throw new UserAlreadyExistException(newUser.getEmail() + " already exists");
         }
+        User user = new User(newUser.getFirstName(), newUser.getLastName(), newUser.getEmail(), newUser.getPassword());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         System.out.println(user.getPassword());
-        Role userRole = roleRepository.findByName("ROLE_USER").get();
+        Role userRole = roleRepository.findByName("ROLE_uSER").get();
         user.setRoles(Collections.singletonList(userRole));
         return userRepository.save(user);
     }

@@ -3,12 +3,14 @@ package com.cifer.lakeSidehotel.controller;
 import com.cifer.lakeSidehotel.exception.UserAlreadyExistException;
 import com.cifer.lakeSidehotel.model.User;
 import com.cifer.lakeSidehotel.request.LoginRequest;
+import com.cifer.lakeSidehotel.request.RegistrationRequest;
 import com.cifer.lakeSidehotel.response.JwtResponse;
 import com.cifer.lakeSidehotel.security.jwt.JwtUtils;
 import com.cifer.lakeSidehotel.security.user.HotelUserDetails;
 import com.cifer.lakeSidehotel.service.IUserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,12 +31,11 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
 
-    @PostMapping("/register-user")
-    public ResponseEntity<?> registerUser(@RequestBody User user) {
+    @PostMapping(value = "/register-user", consumes = {"application/json"})
+    public ResponseEntity<String> register(@RequestBody RegistrationRequest newUser) {
         try {
-            userService.registerUser(user);
+            userService.registerUser(newUser);
             return ResponseEntity.ok("Registration successful!");
-
         } catch (UserAlreadyExistException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         }
